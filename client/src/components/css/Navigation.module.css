@@ -1,0 +1,14 @@
+/* src/components/Navigation.module.css */
+.navigation {
+	display: flex;
+	justify-content: center;
+	gap: 15px;
+	padding: 20px 0;
+	background-color: var(--surface-color);
+	border-radius: var(--border-radius);
+	margin-bottom: 30px;
+}
+.navigation button {
+	font-size: 14px;
+	padding: 10px 15px;
+}

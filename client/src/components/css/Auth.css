@@ -1,0 +1,44 @@
+/* src/components/Auth.css */
+.authContainer {
+	max-width: 400px;
+	margin: 80px auto;
+	padding: 40px;
+	background-color: var(--surface-color);
+	border-radius: var(--border-radius);
+	box-shadow: var(--box-shadow);
+}
+.authForm {
+	display: flex;
+	flex-direction: column;
+	gap: 20px;
+}
+.authForm input {
+	width: 100%;
+}
+.authForm button {
+	margin-top: 20px;
+}
+.errorMessage {
+	color: var(--error-color);
+	margin-top: 15px;
+	font-size: 14px;
+	text-align: center;
+}
+.switchMode {
+	margin-top: 20px;
+	text-align: center;
+	font-size: 14px;
+}
+.switchMode button {
+	background: none;
+	border: none;
+	color: var(--secondary-color);
+	text-decoration: underline;
+	padding: 0;
+	font-size: 14px;
+	text-transform: none;
+	letter-spacing: normal;
+}
+.switchMode button:hover {
+	color: var(--primary-color);
+}

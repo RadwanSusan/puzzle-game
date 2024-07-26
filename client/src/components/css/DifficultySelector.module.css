@@ -1,0 +1,64 @@
+/* src/components/DifficultySelector.module.css */
+.difficultySelector {
+	max-width: 600px;
+	margin: 0 auto;
+	padding: 30px;
+	background-color: var(--surface-color);
+	border-radius: var(--border-radius);
+	box-shadow: var(--box-shadow);
+	text-align: center;
+}
+
+.difficultySelector h2 {
+	font-size: 2rem;
+	color: var(--secondary-color);
+	margin-bottom: 30px;
+}
+
+.buttonGrid {
+	display: grid;
+	grid-template-columns: repeat(3, 1fr);
+	gap: 20px;
+}
+
+.buttonGrid button {
+	padding: 20px;
+	font-size: 18px;
+	font-weight: 600;
+	border: none;
+	border-radius: var(--border-radius);
+	cursor: pointer;
+	transition: all 0.3s ease;
+	text-transform: uppercase;
+	letter-spacing: 1px;
+}
+
+.buttonGrid button:nth-child(1) {
+	background-color: #4caf50; /* Green for Easy */
+	color: white;
+}
+
+.buttonGrid button:nth-child(2) {
+	background-color: #ffc107; /* Amber for Medium */
+	color: #333;
+}
+
+.buttonGrid button:nth-child(3) {
+	background-color: #f44336; /* Red for Hard */
+	color: white;
+}
+
+.buttonGrid button:hover {
+	transform: translateY(-5px);
+	box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+}
+
+.buttonGrid button:active {
+	transform: translateY(-2px);
+}
+
+@media (max-width: 600px) {
+	.buttonGrid {
+		grid-template-columns: 1fr;
+	}
+}
