@@ -1,5 +1,13 @@
 # Puzzle Game
 
+# Access the Front End
+
+[http://104.248.26.98:5000](http://104.248.26.98:5000)
+
+# Access the Backend
+
+[http://104.248.26.98:4000/api](http://104.248.26.98:4000/api)
+
 ## Project Structure
 
 The project consists of two main parts:
