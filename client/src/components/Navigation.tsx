@@ -1,4 +1,3 @@
-// src/components/Navigation.tsx
 import React from 'react';
 import styles from './css/Navigation.module.css';
 interface NavigationProps {

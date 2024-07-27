@@ -1,4 +1,3 @@
-// src\services\rewardService.ts
 import User from '../models/User';
 interface Achievement {
 	id: string;

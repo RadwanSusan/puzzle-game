@@ -1,4 +1,3 @@
-// src\services\puzzleValidationService.ts
 import { IPuzzle } from '../models/Puzzle';
 export function validatePuzzleSolution(
 	puzzle: IPuzzle,

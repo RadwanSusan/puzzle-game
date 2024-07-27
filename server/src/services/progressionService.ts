@@ -1,4 +1,3 @@
-// src\services\progressionService.ts
 import User from '../models/User';
 interface ProgressionData {
 	score: number;

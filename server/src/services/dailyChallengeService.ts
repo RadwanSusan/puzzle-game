@@ -14,9 +14,9 @@ export async function generateDailyChallenge(): Promise<void> {
 		id: wordSearchId,
 		grid: wordSearchGrid,
 		words: wordSearchWords,
-	} = await generateWordSearch(8, 15); // medium difficulty
+	} = await generateWordSearch(8, 15);
 	const { grid: crosswordGrid, clues: crosswordClues } =
-		await generateCrossword();
+		await generateCrossword('medium');
 	const dailyChallenge = new Puzzle({
 		type: 'dailyChallenge',
 		date,

@@ -1,13 +1,9 @@
-// src/components/DifficultySelector.tsx
 import React from 'react';
 import styles from './css/DifficultySelector.module.css';
-
 type Difficulty = 'easy' | 'medium' | 'hard';
-
 interface DifficultySelectorProps {
 	onSelectDifficulty: (difficulty: Difficulty) => void;
 }
-
 const DifficultySelector: React.FC<DifficultySelectorProps> = ({
 	onSelectDifficulty,
 }) => {
@@ -22,5 +18,4 @@ const DifficultySelector: React.FC<DifficultySelectorProps> = ({
 		</div>
 	);
 };
-
 export default DifficultySelector;

@@ -1,4 +1,3 @@
-// src/routes/profileRoutes.ts
 import express from 'express';
 import { authMiddleware } from '../middleware/auth';
 import {

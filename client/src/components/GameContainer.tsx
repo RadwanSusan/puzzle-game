@@ -1,4 +1,3 @@
-// src/components/GameContainer.tsx
 import React, { useState } from 'react';
 import WordSearchGame from './WordSearchGame';
 import NumberPuzzleGame from './NumberPuzzleGame';

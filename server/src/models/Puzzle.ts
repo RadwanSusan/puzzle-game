@@ -1,4 +1,3 @@
-// src/models/Puzzle.ts
 import mongoose, { Schema, Document } from 'mongoose';
 export type PuzzleType = 'number' | 'wordsearch' | 'crossword';
 export type Difficulty = 'easy' | 'medium' | 'hard';
@@ -6,7 +5,7 @@ export interface IPuzzle extends Document {
 	type: PuzzleType;
 	difficulty: Difficulty;
 	grid: (number | string)[][];
-	solution?: (number | string)[][] | string[]; // Make solution optional
+	solution?: (number | string)[][] | string[];
 	date?: Date;
 	words?: string[];
 }
@@ -27,7 +26,7 @@ const PuzzleSchema: Schema = new Schema({
 	},
 	solution: {
 		type: Schema.Types.Mixed,
-		required: false, // Make solution optional
+		required: false,
 	},
 	date: {
 		type: Date,

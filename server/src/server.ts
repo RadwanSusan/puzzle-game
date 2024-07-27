@@ -1,4 +1,3 @@
-// src\server.ts
 import express from 'express';
 import cors from 'cors';
 import mongoose from 'mongoose';
@@ -8,7 +7,7 @@ import puzzleRoutes from './routes/puzzleRoutes';
 import profileRoutes from './routes/profileRoutes';
 dotenv.config();
 const app = express();
-const port = process.env.PORT || 5000;
+const port = process.env.PORT || 4000;
 app.use(cors());
 app.use(express.json());
 mongoose.connect(process.env.MONGODB_URI as string);

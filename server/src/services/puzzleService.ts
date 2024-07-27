@@ -1,4 +1,3 @@
-// src\services\puzzleService.ts
 import Puzzle, { IPuzzle } from '../models/Puzzle';
 function shuffleArray(array: number[]): number[] {
 	for (let i = array.length - 1; i > 0; i--) {

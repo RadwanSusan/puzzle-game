@@ -1,6 +1,6 @@
-// src/components/UserProfile.tsx
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
+import './css/UserProfile.css';
 interface UserProfileProps {
 	token: string;
 }
@@ -22,8 +22,6 @@ interface UserProfile {
 }
 const UserProfile: React.FC<UserProfileProps> = ({ token }) => {
 	const [profile, setProfile] = useState<UserProfile | null>(null);
-	const [email, setEmail] = useState('');
-	const [isEditing, setIsEditing] = useState(false);
 	const [error, setError] = useState('');
 	useEffect(() => {
 		fetchProfile();
@@ -34,25 +32,9 @@ const UserProfile: React.FC<UserProfileProps> = ({ token }) => {
 				headers: { Authorization: `Bearer ${token}` },
 			});
 			setProfile(response.data);
-			setEmail(response.data.email);
 		} catch (error) {
 			console.error('Error fetching user profile:', error);
 			setError('Failed to fetch profile');
-		}
-	};
-	const handleUpdateProfile = async (e: React.FormEvent) => {
-		e.preventDefault();
-		try {
-			const response = await axios.put(
-				'/api/user/profile',
-				{ email },
-				{ headers: { Authorization: `Bearer ${token}` } },
-			);
-			setProfile(response.data);
-			setIsEditing(false);
-		} catch (error) {
-			console.error('Error updating profile:', error);
-			setError('Failed to update profile');
 		}
 	};
 	if (error) return <div className='error'>{error}</div>;
@@ -60,69 +42,93 @@ const UserProfile: React.FC<UserProfileProps> = ({ token }) => {
 	return (
 		<div className='user-profile'>
 			<h2>{profile.username}'s Profile</h2>
-			{isEditing ? (
-				<form onSubmit={handleUpdateProfile}>
-					<input
-						type='email'
-						value={email}
-						onChange={(e) => setEmail(e.target.value)}
-						required
-					/>
-					<button type='submit'>Save</button>
-					<button onClick={() => setIsEditing(false)}>Cancel</button>
-				</form>
-			) : (
+			<div className='profile-info'>
 				<div>
 					<p>Email: {profile.email}</p>
-					<button onClick={() => setIsEditing(true)}>Edit Email</button>
 				</div>
-			)}
-			<div className='statistics'>
-				<h3>Statistics</h3>
-				<p>Total Puzzles Solved: {profile.statistics.totalPuzzlesSolved}</p>
-				<p>
-					Average Time: {profile.statistics.averageTime.toFixed(2)} seconds
-				</p>
-				<p>Best Time: {profile.statistics.bestTime} seconds</p>
-				<p>
-					Daily Challenges Completed:{' '}
-					{profile.statistics.dailyChallengesCompleted}
-				</p>
-				<h4>Puzzle Type Stats:</h4>
-				<ul>
-					<li>
-						Number Puzzles:{' '}
-						{profile.statistics.puzzleTypeStats.number.solved} solved,
-						{profile.statistics.puzzleTypeStats.number.averageTime.toFixed(
-							2,
-						)}{' '}
-						seconds average time
-					</li>
-					<li>
-						Word Search:{' '}
-						{profile.statistics.puzzleTypeStats.wordSearch.solved} solved,
-						{profile.statistics.puzzleTypeStats.wordSearch.averageTime.toFixed(
-							2,
-						)}{' '}
-						seconds average time
-					</li>
-					<li>
-						Crossword:{' '}
-						{profile.statistics.puzzleTypeStats.crossword.solved} solved,
-						{profile.statistics.puzzleTypeStats.crossword.averageTime.toFixed(
-							2,
-						)}{' '}
-						seconds average time
-					</li>
-				</ul>
+			</div>
+			<div className='stats'>
+				<div className='stat-card'>
+					<h3>Total Puzzles Solved</h3>
+					<p className='stat-value'>
+						{profile.statistics.totalPuzzlesSolved}
+					</p>
+				</div>
+				<div className='stat-card'>
+					<h3>Average Time</h3>
+					<p className='stat-value'>
+						{profile.statistics.averageTime.toFixed(2)}s
+					</p>
+				</div>
+				<div className='stat-card'>
+					<h3>Best Time</h3>
+					<p className='stat-value'>{profile.statistics.bestTime}s</p>
+				</div>
+				<div className='stat-card'>
+					<h3>Daily Challenges Completed</h3>
+					<p className='stat-value'>
+						{profile.statistics.dailyChallengesCompleted}
+					</p>
+				</div>
+			</div>
+			<div className='puzzle-type-stats'>
+				<h3>Puzzle Type Stats</h3>
+				<div className='stats'>
+					<div className='stat-card'>
+						<h4>Number Puzzles</h4>
+						<p>
+							Solved: {profile.statistics.puzzleTypeStats.number.solved}
+						</p>
+						<p>
+							Average Time:{' '}
+							{profile.statistics.puzzleTypeStats.number.averageTime.toFixed(
+								2,
+							)}
+							s
+						</p>
+					</div>
+					<div className='stat-card'>
+						<h4>Word Search</h4>
+						<p>
+							Solved:{' '}
+							{profile.statistics.puzzleTypeStats.wordSearch.solved}
+						</p>
+						<p>
+							Average Time:{' '}
+							{profile.statistics.puzzleTypeStats.wordSearch.averageTime.toFixed(
+								2,
+							)}
+							s
+						</p>
+					</div>
+					<div className='stat-card'>
+						<h4>Crossword</h4>
+						<p>
+							Solved:{' '}
+							{profile.statistics.puzzleTypeStats.crossword.solved}
+						</p>
+						<p>
+							Average Time:{' '}
+							{profile.statistics.puzzleTypeStats.crossword.averageTime.toFixed(
+								2,
+							)}
+							s
+						</p>
+					</div>
+				</div>
 			</div>
 			<div className='achievements'>
 				<h3>Achievements</h3>
-				<ul>
+				<div className='achievement-list'>
 					{profile.statistics.achievements.map((achievement, index) => (
-						<li key={index}>{achievement}</li>
+						<div
+							key={index}
+							className='achievement'>
+							<div className='achievement-icon'>🏆</div>
+							<p>{achievement}</p>
+						</div>
 					))}
-				</ul>
+				</div>
 			</div>
 		</div>
 	);

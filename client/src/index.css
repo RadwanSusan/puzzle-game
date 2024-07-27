@@ -1,6 +1,4 @@
-/* src/index.css */
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap');
-
 :root {
 	--primary-color: #6c5ce7;
 	--secondary-color: #00cec9;
@@ -13,7 +11,6 @@
 	--box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
 	--transition: all 0.3s ease;
 }
-
 body {
 	font-family: 'Poppins', sans-serif;
 	background-color: var(--background-color);
@@ -22,13 +19,11 @@ body {
 	padding: 0;
 	line-height: 1.6;
 }
-
 .container {
 	max-width: 1200px;
 	margin: 0 auto;
 	padding: 20px;
 }
-
 button {
 	cursor: pointer;
 	background-color: var(--primary-color);
@@ -42,13 +37,11 @@ button {
 	text-transform: uppercase;
 	letter-spacing: 1px;
 }
-
 button:hover {
 	background-color: #5648c0;
 	transform: translateY(-2px);
 	box-shadow: 0 4px 8px rgba(108, 92, 231, 0.3);
 }
-
 input {
 	padding: 12px;
 	border: 2px solid #444;
@@ -58,20 +51,17 @@ input {
 	color: var(--text-color);
 	transition: var(--transition);
 }
-
 input:focus {
 	border-color: var(--primary-color);
 	outline: none;
 	box-shadow: 0 0 0 3px rgba(108, 92, 231, 0.3);
 }
-
 h1,
 h2,
 h3 {
 	color: var(--secondary-color);
 	margin-bottom: 20px;
 }
-
 .page-title {
 	font-size: 2.5rem;
 	text-align: center;
@@ -79,7 +69,6 @@ h3 {
 	text-transform: uppercase;
 	letter-spacing: 2px;
 }
-
 .card {
 	background-color: var(--surface-color);
 	border-radius: var(--border-radius);
@@ -88,12 +77,10 @@ h3 {
 	margin-bottom: 30px;
 	transition: var(--transition);
 }
-
 .card:hover {
 	transform: translateY(-5px);
 	box-shadow: 0 12px 24px rgba(0, 0, 0, 0.3);
 }
-
 @keyframes fadeIn {
 	from {
 		opacity: 0;
@@ -102,7 +89,6 @@ h3 {
 		opacity: 1;
 	}
 }
-
 .fade-in {
 	animation: fadeIn 0.5s ease-in-out;
 }

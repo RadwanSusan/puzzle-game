@@ -1,4 +1,3 @@
-// src\models\Score.ts
 import mongoose, { Schema, Document } from 'mongoose';
 export interface IScore extends Document {
 	username: string;

@@ -1,4 +1,3 @@
-// src/controllers/profileController.ts
 import { Response } from 'express';
 import User from '../models/User';
 import { AuthRequest } from '../middleware/auth';

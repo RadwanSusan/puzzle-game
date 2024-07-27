@@ -1,4 +1,3 @@
-// src\components\Tutorial.tsx
 import React, { useState } from 'react';
 import './css/Tutorial.css';
 interface TutorialProps {

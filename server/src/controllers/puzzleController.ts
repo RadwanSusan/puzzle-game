@@ -1,12 +1,10 @@
-// src\controllers\puzzleController.ts
 import { Request, Response } from 'express';
-import Puzzle, { IPuzzle } from '../models/Puzzle';
+import Puzzle from '../models/Puzzle';
 import Score from '../models/Score';
 import User from '../models/User';
 import { validatePuzzleSolution } from '../services/puzzleValidationService';
 import { updateUserProgress } from '../services/progressionService';
 import { checkAchievements } from '../services/rewardService';
-import { updateStatistics } from '../services/statisticsService';
 import { AuthRequest } from '../middleware/auth';
 import {
 	getCrosswordHint,
@@ -47,7 +45,7 @@ export async function getPuzzle(req: Request, res: Response) {
 				});
 				break;
 			case 'crossword':
-				puzzle = await generateCrossword();
+				puzzle = await generateCrossword(difficulty);
 				res.json({
 					id: puzzle._id,
 					grid: puzzle.grid,
@@ -65,7 +63,6 @@ export async function getPuzzle(req: Request, res: Response) {
 }
 export async function submitScore(req: AuthRequest, res: Response) {
 	try {
-		console.log(req.body);
 		const { score, difficulty, puzzleId, puzzleType, time, isDaily } =
 			req.body;
 		const username = req.user?.username;
@@ -93,7 +90,6 @@ export async function submitScore(req: AuthRequest, res: Response) {
 			puzzleType,
 			time: 0,
 		});
-		await updateStatistics(req.user.id, puzzleType, time, isDaily);
 		const newAchievements = await checkAchievements(req.user.id);
 		const updatedStats = await getUserStats(req.user.id);
 		res.status(201).json({
@@ -167,35 +163,16 @@ export async function getHint(req: AuthRequest, res: Response) {
 		res.status(500).json({ message: 'Error getting hint' });
 	}
 }
-// export async function getWordSearchPuzzle(req: AuthRequest, res: Response) {
-// 	try {
-// 		const words = ['PUZZLE', 'GAME', 'WORD', 'SEARCH', 'FUN'];
-// 		const { grid, words: placedWords } = generateWordSearch(words);
-// 		const puzzle = new Puzzle({
-// 			type: 'wordsearch',
-// 			grid,
-// 			solution: placedWords,
-// 			difficulty: 'medium',
-// 		});
-// 		await puzzle.save();
-// 		res.json({ id: puzzle._id, grid, words: placedWords });
-// 	} catch (error) {
-// 		res.status(500).json({
-// 			message: `Error generating word search puzzle error:${error}`,
-// 		});
-// 	}
+
 export async function getWordSearchPuzzle(req: AuthRequest, res: Response) {
 	try {
 		const difficulty = req.query.difficulty as 'easy' | 'medium' | 'hard';
-		// Define difficulty settings
 		const settings = {
 			easy: { wordCount: 5, gridSize: 10 },
 			medium: { wordCount: 8, gridSize: 15 },
 			hard: { wordCount: 12, gridSize: 20 },
 		};
-		// Get settings based on difficulty
 		const { wordCount, gridSize } = settings[difficulty] || settings.medium;
-		// Generate the puzzle
 		const { id, grid, words } = await generateWordSearch(wordCount, gridSize);
 		res.json({
 			id,

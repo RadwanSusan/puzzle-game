@@ -1,4 +1,3 @@
-// src/components/WordSearchGame.tsx
 import React, { useState, useEffect, useCallback } from 'react';
 import axios from 'axios';
 import { toast, ToastContainer } from 'react-toastify';
@@ -86,7 +85,6 @@ const WordSearchGame: React.FC<WordSearchGameProps> = ({
 				pauseOnHover: true,
 				draggable: true,
 			});
-			// Check if all words are found
 			if (newFoundWords.length === puzzle!.words.length) {
 				setGameCompleted(true);
 				showCongratulations();
@@ -133,12 +131,12 @@ const WordSearchGame: React.FC<WordSearchGameProps> = ({
 			</div>,
 			{
 				position: 'top-center',
-				autoClose: false,
+				autoClose: 5000,
 				hideProgressBar: false,
 				closeOnClick: false,
 				pauseOnHover: true,
 				draggable: false,
-				closeButton: false,
+				closeButton: true,
 			},
 		);
 	};

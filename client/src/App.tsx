@@ -1,4 +1,3 @@
-// src/App.tsx
 import React, { useEffect, useState } from 'react';
 import Auth from './components/Auth';
 import DifficultySelector from './components/DifficultySelector';
@@ -103,13 +102,6 @@ const App: React.FC = () => {
 						gameType={gameType}
 					/>
 				)}
-				{/* {gameState === 'daily' && (
-					<Game
-						difficulty='medium'
-						token={token as string}
-						gameType='daily'
-					/>
-				)} */}
 				{gameState === 'leaderboard' && <Leaderboard />}
 				{gameState === 'profile' && <UserProfile token={token as string} />}
 			</div>

@@ -1,4 +1,3 @@
-// src\services\crosswordService.ts
 interface CrosswordCell {
 	letter: string;
 	number?: number;

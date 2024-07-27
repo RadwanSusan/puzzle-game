@@ -1,4 +1,3 @@
-// src\services\hintService.ts
 import Puzzle from '../models/Puzzle';
 export async function getWordSearchHint(
 	puzzleId: string,
@@ -33,6 +32,7 @@ export async function getCrosswordHint(
 	}
 	return null;
 }
+
 export async function getNumberPuzzleHint(
 	puzzleId: string,
 	userSolution: number[][],

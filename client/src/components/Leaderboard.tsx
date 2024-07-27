@@ -1,4 +1,3 @@
-// src/components/Leaderboard.tsx
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import './css/Leaderboard.css';

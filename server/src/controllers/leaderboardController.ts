@@ -1,4 +1,3 @@
-// src\controllers\leaderboardController.ts
 import { Request, Response } from 'express';
 import Score from '../models/Score';
 export async function getDailyLeaderboard(req: Request, res: Response) {

@@ -1,4 +1,3 @@
-// src\routes\puzzleRoutes.ts
 import express from 'express';
 import { Request, Response, NextFunction } from 'express';
 import { body, query, validationResult } from 'express-validator';

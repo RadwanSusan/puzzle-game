@@ -1,4 +1,3 @@
-// src\components\Profile.tsx
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 interface ProfileProps {

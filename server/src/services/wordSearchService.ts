@@ -1,4 +1,3 @@
-// src\services\wordSearchService.ts
 import Puzzle from '../models/Puzzle';
 import { ObjectId } from 'mongodb';
 export async function generateWordSearch(
@@ -48,8 +47,8 @@ export async function generateWordSearch(
 		type: 'wordsearch',
 		grid,
 		words: placedWords,
-		solution: placedWords, // Add this line
-		difficulty: 'medium', // You might want to pass this as a parameter
+		solution: placedWords,
+		difficulty: 'medium',
 	});
 	await puzzle.save();
 	return { id: (puzzle._id as ObjectId).toString(), grid, words: placedWords };
@@ -92,7 +91,6 @@ function placeWord(
 	}
 }
 async function getRandomWords(count: number): Promise<string[]> {
-	// This is a placeholder. In a real application, you'd fetch words from a database or API
 	const allWords = [
 		'PUZZLE',
 		'GAME',

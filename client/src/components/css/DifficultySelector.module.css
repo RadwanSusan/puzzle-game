@@ -1,4 +1,3 @@
-/* src/components/DifficultySelector.module.css */
 .difficultySelector {
 	max-width: 600px;
 	margin: 0 auto;
@@ -34,17 +33,17 @@
 }
 
 .buttonGrid button:nth-child(1) {
-	background-color: #4caf50; /* Green for Easy */
+	background-color: #4caf50;
 	color: white;
 }
 
 .buttonGrid button:nth-child(2) {
-	background-color: #ffc107; /* Amber for Medium */
+	background-color: #ffc107;
 	color: #333;
 }
 
 .buttonGrid button:nth-child(3) {
-	background-color: #f44336; /* Red for Hard */
+	background-color: #f44336;
 	color: white;
 }
 
