@@ -8,6 +8,8 @@ import Tutorial from './components/Tutorial';
 import UserProfile from './components/UserProfile';
 import Navigation from './components/Navigation';
 import styles from './App.module.css';
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 type GameState =
 	| 'auth'
 	| 'tutorial'
@@ -70,6 +72,7 @@ const App: React.FC = () => {
 	);
 	return (
 		<div className={styles.app}>
+			<ToastContainer />
 			{token && (
 				<Navigation
 					onNewGame={() => setGameState('selecting-mode')}
@@ -100,13 +103,13 @@ const App: React.FC = () => {
 						gameType={gameType}
 					/>
 				)}
-				{gameState === 'daily' && (
+				{/* {gameState === 'daily' && (
 					<Game
 						difficulty='medium'
 						token={token as string}
 						gameType='daily'
 					/>
-				)}
+				)} */}
 				{gameState === 'leaderboard' && <Leaderboard />}
 				{gameState === 'profile' && <UserProfile token={token as string} />}
 			</div>

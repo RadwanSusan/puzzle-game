@@ -1,8 +1,11 @@
 // src\services\wordSearchService.ts
-export function generateWordSearch(
-	words: string[],
-	gridSize: number = 15,
-): { grid: string[][]; words: string[] } {
+import Puzzle from '../models/Puzzle';
+import { ObjectId } from 'mongodb';
+export async function generateWordSearch(
+	wordCount: number = 5,
+	gridSize: number = 10,
+): Promise<{ id: string; grid: string[][]; words: string[] }> {
+	const words = await getRandomWords(wordCount);
 	const grid: string[][] = Array(gridSize)
 		.fill(null)
 		.map(() => Array(gridSize).fill(''));
@@ -41,7 +44,15 @@ export function generateWordSearch(
 			}
 		}
 	}
-	return { grid, words: placedWords };
+	const puzzle = new Puzzle({
+		type: 'wordsearch',
+		grid,
+		words: placedWords,
+		solution: placedWords, // Add this line
+		difficulty: 'medium', // You might want to pass this as a parameter
+	});
+	await puzzle.save();
+	return { id: (puzzle._id as ObjectId).toString(), grid, words: placedWords };
 }
 function canPlaceWord(
 	grid: string[][],
@@ -79,4 +90,22 @@ function placeWord(
 	for (let i = 0; i < word.length; i++) {
 		grid[row + i * dx][col + i * dy] = word[i];
 	}
+}
+async function getRandomWords(count: number): Promise<string[]> {
+	// This is a placeholder. In a real application, you'd fetch words from a database or API
+	const allWords = [
+		'PUZZLE',
+		'GAME',
+		'WORD',
+		'SEARCH',
+		'FUN',
+		'CHALLENGE',
+		'BRAIN',
+		'MIND',
+		'PLAY',
+		'FIND',
+		'HIDDEN',
+		'SEEK',
+	];
+	return allWords.sort(() => 0.5 - Math.random()).slice(0, count);
 }

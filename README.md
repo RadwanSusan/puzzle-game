@@ -45,7 +45,7 @@ The project consists of two main parts:
 3. Start the server:
 
    ```bash
-   npm start
+   npm run dev
    ```
 
 ### Frontend Setup
@@ -65,5 +65,5 @@ The project consists of two main parts:
 3. Start the client:
 
    ```bash
-   npm start
+   npm run dev
    ```

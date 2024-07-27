@@ -1,4 +1,3 @@
-// src\services\dailyChallengeService.ts
 import Puzzle from '../models/Puzzle';
 import { generateCrossword } from './crosswordGenerator';
 import { generateWordSearch } from './wordSearchService';
@@ -11,21 +10,37 @@ export async function generateDailyChallenge(): Promise<void> {
 	});
 	if (existingChallenge) return;
 	const numberPuzzle = await generateNumberPuzzle('medium');
-	const wordSearch = generateWordSearch([
-		'DAILY',
-		'CHALLENGE',
-		'PUZZLE',
-		'MASTER',
-	]);
-	const crossword = await generateCrossword();
+	const {
+		id: wordSearchId,
+		grid: wordSearchGrid,
+		words: wordSearchWords,
+	} = await generateWordSearch(8, 15); // medium difficulty
+	const { grid: crosswordGrid, clues: crosswordClues } =
+		await generateCrossword();
 	const dailyChallenge = new Puzzle({
 		type: 'dailyChallenge',
 		date,
-		puzzles: [numberPuzzle, wordSearch, crossword],
+		puzzles: [
+			{
+				type: 'number',
+				puzzle: numberPuzzle,
+			},
+			{
+				type: 'wordsearch',
+				puzzle: {
+					id: wordSearchId,
+					grid: wordSearchGrid,
+					words: wordSearchWords,
+				},
+			},
+			{
+				type: 'crossword',
+				puzzle: {
+					grid: crosswordGrid,
+					clues: crosswordClues,
+				},
+			},
+		],
 	});
 	await dailyChallenge.save();
-}
-export async function getDailyChallenge(): Promise<any> {
-	const date = new Date().toISOString().split('T')[0];
-	return await Puzzle.findOne({ type: 'dailyChallenge', date });
 }

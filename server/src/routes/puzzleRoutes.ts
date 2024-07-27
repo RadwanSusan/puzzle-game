@@ -11,7 +11,7 @@ import {
 	getLeaderboard,
 } from '../controllers/puzzleController';
 import { authMiddleware, AuthRequest } from '../middleware/auth';
-import { getDailyChallenge } from '../services/dailyChallengeService';
+import { generateDailyChallenge } from '../services/dailyChallengeService';
 const router = express.Router();
 router.get(
 	'/puzzle',
@@ -75,5 +75,5 @@ router.post(
 router.get('/leaderboard', getLeaderboard);
 router.get('/wordsearch', authMiddleware, getWordSearchPuzzle);
 router.post('/hint', authMiddleware, getHint);
-router.get('/daily', authMiddleware, getDailyChallenge);
+router.get('/daily', authMiddleware, generateDailyChallenge);
 export default router;

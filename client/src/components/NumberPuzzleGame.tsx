@@ -1,7 +1,7 @@
 // src/components/NumberPuzzleGame.tsx
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import './css/NumberPuzzleGame.css';
+import './css/Game.css';
 interface NumberPuzzleGameProps {
 	difficulty: 'easy' | 'medium' | 'hard';
 	token: string;
@@ -55,7 +55,7 @@ const NumberPuzzleGame: React.FC<NumberPuzzleGameProps> = ({
 					difficulty,
 					puzzleId: puzzle?.id,
 					solution: userSolution,
-					gameType: 'number',
+					puzzleType: 'number',
 				},
 				{ headers: { Authorization: `Bearer ${token}` } },
 			);

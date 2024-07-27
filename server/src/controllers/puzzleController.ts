@@ -20,40 +20,47 @@ export async function getPuzzle(req: Request, res: Response) {
 	try {
 		const difficulty = req.query.difficulty as 'easy' | 'medium' | 'hard';
 		const gameType = req.query.type as 'number' | 'wordsearch' | 'crossword';
-		let puzzle;
+		let puzzle: any;
 		switch (gameType) {
+			case 'wordsearch':
+				const wordCount =
+					difficulty === 'easy' ? 5 : difficulty === 'medium' ? 8 : 12;
+				const gridSize =
+					difficulty === 'easy' ? 10 : difficulty === 'medium' ? 15 : 20;
+				puzzle = await generateWordSearch(wordCount, gridSize);
+				res.json({
+					id: puzzle.id,
+					grid: puzzle.grid,
+					words: puzzle.words,
+					difficulty: difficulty,
+					gameType: gameType,
+				});
+				break;
 			case 'number':
 				puzzle = await generateNumberPuzzle(difficulty);
-				break;
-			case 'wordsearch':
-				puzzle = await generateWordSearch([
-					'PUZZLE',
-					'GAME',
-					'WORD',
-					'SEARCH',
-					'FUN',
-				]);
+				res.json({
+					id: puzzle._id,
+					grid: puzzle.grid,
+					solution: puzzle.solution,
+					difficulty: difficulty,
+					gameType: gameType,
+				});
 				break;
 			case 'crossword':
 				puzzle = await generateCrossword();
+				res.json({
+					id: puzzle._id,
+					grid: puzzle.grid,
+					clues: puzzle.clues,
+					difficulty: difficulty,
+					gameType: gameType,
+				});
 				break;
 			default:
 				return res.status(400).json({ message: 'Invalid game type' });
 		}
-		if ('_id' in puzzle) {
-			res.json({
-				grid: puzzle.grid,
-				difficulty: (puzzle as IPuzzle).difficulty,
-				id: puzzle._id,
-				gameType: gameType,
-			});
-		} else {
-			res.json(puzzle);
-		}
 	} catch (error) {
-		res.status(500).json({
-			message: `Error generating puzzle: ${error}`,
-		});
+		res.status(500).json({ message: `Error generating puzzle: ${error}` });
 	}
 }
 export async function submitScore(req: AuthRequest, res: Response) {
@@ -122,8 +129,10 @@ export async function checkPuzzle(req: AuthRequest, res: Response) {
 	try {
 		const { puzzleId, solution } = req.body;
 		const puzzle = await Puzzle.findById(puzzleId);
-		if (!puzzle) {
-			return res.status(404).json({ message: 'Puzzle not found' });
+		if (!puzzle || !puzzle.solution) {
+			return res
+				.status(404)
+				.json({ message: 'Puzzle not found or invalid' });
 		}
 		const errors: [number, number][] = [];
 		for (let i = 0; i < puzzle.solution.length; i++) {
@@ -158,21 +167,47 @@ export async function getHint(req: AuthRequest, res: Response) {
 		res.status(500).json({ message: 'Error getting hint' });
 	}
 }
+// export async function getWordSearchPuzzle(req: AuthRequest, res: Response) {
+// 	try {
+// 		const words = ['PUZZLE', 'GAME', 'WORD', 'SEARCH', 'FUN'];
+// 		const { grid, words: placedWords } = generateWordSearch(words);
+// 		const puzzle = new Puzzle({
+// 			type: 'wordsearch',
+// 			grid,
+// 			solution: placedWords,
+// 			difficulty: 'medium',
+// 		});
+// 		await puzzle.save();
+// 		res.json({ id: puzzle._id, grid, words: placedWords });
+// 	} catch (error) {
+// 		res.status(500).json({
+// 			message: `Error generating word search puzzle error:${error}`,
+// 		});
+// 	}
 export async function getWordSearchPuzzle(req: AuthRequest, res: Response) {
 	try {
-		const words = ['PUZZLE', 'GAME', 'WORD', 'SEARCH', 'FUN'];
-		const { grid, words: placedWords } = generateWordSearch(words);
-		const puzzle = new Puzzle({
-			type: 'wordsearch',
+		const difficulty = req.query.difficulty as 'easy' | 'medium' | 'hard';
+		// Define difficulty settings
+		const settings = {
+			easy: { wordCount: 5, gridSize: 10 },
+			medium: { wordCount: 8, gridSize: 15 },
+			hard: { wordCount: 12, gridSize: 20 },
+		};
+		// Get settings based on difficulty
+		const { wordCount, gridSize } = settings[difficulty] || settings.medium;
+		// Generate the puzzle
+		const { id, grid, words } = await generateWordSearch(wordCount, gridSize);
+		res.json({
+			id,
 			grid,
-			solution: placedWords,
-			difficulty: 'medium',
+			words,
+			difficulty,
+			gameType: 'wordsearch',
 		});
-		await puzzle.save();
-		res.json({ id: puzzle._id, grid, words: placedWords });
 	} catch (error) {
+		console.error('Error generating word search puzzle:', error);
 		res.status(500).json({
-			message: `Error generating word search puzzle error:${error}`,
+			message: `Error generating word search puzzle: ${error}`,
 		});
 	}
 }
